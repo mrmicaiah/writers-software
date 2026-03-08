@@ -5,6 +5,7 @@ pages_build_output_dir = "./frontend"
 [vars]
 GITHUB_REPO = "mrmicaiah/writers-software"
 
-# Set these as secrets in Cloudflare Pages dashboard:
+# Secrets configured in Cloudflare Pages dashboard:
 # - GITHUB_TOKEN (GitHub PAT with repo scope)
-# - ANTHROPIC_API_KEY (Your Anthropic API key)
+# - ANTHROPIC_API_KEY (Anthropic API key)
+# Updated: trigger redeploy for env vars
