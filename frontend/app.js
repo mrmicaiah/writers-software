@@ -98,13 +98,7 @@ async function exportProject(category, project, format) {
 
 function render() {
   const app = document.getElementById('app');
-  
-  // Add editor-view class when in editor mode for compact header
-  if (state.view === 'editor') {
-    app.className = 'editor-view';
-  } else {
-    app.className = '';
-  }
+  app.className = '';
   
   let content = '<div class="ambient-light"></div>';
   content += renderHeader();
@@ -116,6 +110,8 @@ function render() {
   }
   
   if (state.view !== 'editor') content += renderFooter();
+  
+  // Alice floating panel on ALL views
   content += renderAlicePanel();
   
   app.innerHTML = content;
@@ -196,26 +192,11 @@ function renderEditor() {
         </div>
         <textarea class="editor-textarea" id="editor-content" placeholder="Select a file from the tree to begin editing...">${state.fileContent}</textarea>
       </div>
-      <div class="assistant-panel">
-        <div class="assistant-header">
-          <div class="alice-header-profile">
-            <img src="${ALICE_IMAGE}" alt="Alice" class="alice-avatar-small" />
-            <h3>Alice</h3>
-          </div>
-        </div>
-        <div class="assistant-messages" id="assistant-messages">
-          ${state.assistantMessages.map(msg => `<div class="assistant-message ${msg.role}">${msg.content}</div>`).join('')}
-        </div>
-        <div class="assistant-input">
-          <textarea id="assistant-input" placeholder="Ask Alice for help with your writing..."></textarea>
-          <button data-action="ask-alice" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Thinking...' : 'Send'}</button>
-        </div>
-      </div>
     </div>`;
 }
 
 function renderAlicePanel() {
-  if (state.view === 'editor') return '';
+  // Always show floating Alice on all views
   if (!state.aliceOpen) {
     return `<button class="alice-floating-btn" data-action="toggle-alice"><img src="${ALICE_IMAGE}" alt="Alice" /></button>`;
   }
@@ -228,7 +209,7 @@ function renderAlicePanel() {
         ${state.assistantMessages.map(msg => `<div class="assistant-message ${msg.role}">${msg.content}</div>`).join('')}
       </div>
       <div class="assistant-input">
-        <textarea id="assistant-input" placeholder="Ask Alice for help..."></textarea>
+        <textarea id="assistant-input" placeholder="Ask Alice for help with your writing..."></textarea>
         <button data-action="ask-alice" ${state.loading ? 'disabled' : ''}>${state.loading ? 'Thinking...' : 'Send'}</button>
       </div>
     </div>`;
