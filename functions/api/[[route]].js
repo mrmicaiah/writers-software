@@ -35,7 +35,10 @@ export async function onRequest(context) {
         return await handleExport(env, url.searchParams.get('category'), url.searchParams.get('project'), url.searchParams.get('format'));
       default: return jsonResponse({ error: 'Not found' }, corsHeaders, 404);
     }
-  } catch (err) { console.error('API Error:', err); return jsonResponse({ error: err.message }, corsHeaders, 500); }
+  } catch (err) { 
+    console.error('API Error:', err); 
+    return jsonResponse({ error: err.message, stack: err.stack }, corsHeaders, 500); 
+  }
 }
 
 async function getProjects(env) {
@@ -137,6 +140,11 @@ async function executeAliceTool(env, toolName, toolInput, context) {
 }
 
 async function handleAlice(env, { message, context, history }) {
+  // Check if API key is configured
+  if (!env.ANTHROPIC_API_KEY) {
+    return { response: "Error: ANTHROPIC_API_KEY is not configured in Cloudflare Pages environment variables." };
+  }
+
   const systemPrompt = `You are Alice, a writing assistant embedded in a writer's dashboard.
 You help with creative writing, character development, plot outlines, and editing.
 
@@ -161,42 +169,58 @@ PERSONALITY:
 - No emojis.`;
 
   const messages = [];
-  if (history?.length > 0) { for (const msg of history) { if (msg.role === 'user' || msg.role === 'assistant') messages.push({ role: msg.role, content: msg.content }); } }
+  if (history?.length > 0) { 
+    for (const msg of history) { 
+      if (msg.role === 'user' || msg.role === 'assistant') {
+        messages.push({ role: msg.role, content: msg.content }); 
+      }
+    } 
+  }
   messages.push({ role: 'user', content: message });
 
-  let response = await fetch(ANTHROPIC_API, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 4096, system: systemPrompt, messages, tools: ALICE_TOOLS })
-  });
-  let data = await response.json();
-  
-  let fileUpdate = null, filePath = null, filesCreated = false;
-  let loopMessages = [...messages];
-  
-  while (data.stop_reason === 'tool_use') {
-    loopMessages.push({ role: 'assistant', content: data.content });
-    const toolResults = [];
-    for (const block of data.content) {
-      if (block.type === 'tool_use') {
-        const result = await executeAliceTool(env, block.name, block.input, context || {});
-        toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: JSON.stringify(result) });
-        if (result.fileUpdate) fileUpdate = result.fileUpdate;
-        if (result.filePath) filePath = result.filePath;
-        if (result.filesCreated) filesCreated = true;
-      }
-    }
-    loopMessages.push({ role: 'user', content: toolResults });
-    response = await fetch(ANTHROPIC_API, {
+  try {
+    let response = await fetch(ANTHROPIC_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 4096, system: systemPrompt, messages: loopMessages, tools: ALICE_TOOLS })
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 4096, system: systemPrompt, messages, tools: ALICE_TOOLS })
     });
-    data = await response.json();
-  }
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      return { response: `Anthropic API error (${response.status}): ${errorText}` };
+    }
+    
+    let data = await response.json();
+    
+    let fileUpdate = null, filePath = null, filesCreated = false;
+    let loopMessages = [...messages];
+    
+    while (data.stop_reason === 'tool_use') {
+      loopMessages.push({ role: 'assistant', content: data.content });
+      const toolResults = [];
+      for (const block of data.content) {
+        if (block.type === 'tool_use') {
+          const result = await executeAliceTool(env, block.name, block.input, context || {});
+          toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: JSON.stringify(result) });
+          if (result.fileUpdate) fileUpdate = result.fileUpdate;
+          if (result.filePath) filePath = result.filePath;
+          if (result.filesCreated) filesCreated = true;
+        }
+      }
+      loopMessages.push({ role: 'user', content: toolResults });
+      response = await fetch(ANTHROPIC_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 4096, system: systemPrompt, messages: loopMessages, tools: ALICE_TOOLS })
+      });
+      data = await response.json();
+    }
 
-  const textContent = data.content?.filter(c => c.type === 'text').map(c => c.text).join('\n') || "I couldn't process that.";
-  return { response: textContent, fileUpdate, filePath, filesCreated };
+    const textContent = data.content?.filter(c => c.type === 'text').map(c => c.text).join('\n') || "I couldn't process that.";
+    return { response: textContent, fileUpdate, filePath, filesCreated };
+  } catch (err) {
+    return { response: `Error calling Anthropic: ${err.message}` };
+  }
 }
 
 async function handleExport(env, category, project, format) {
