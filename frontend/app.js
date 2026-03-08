@@ -98,6 +98,14 @@ async function exportProject(category, project, format) {
 
 function render() {
   const app = document.getElementById('app');
+  
+  // Add editor-view class when in editor mode for compact header
+  if (state.view === 'editor') {
+    app.className = 'editor-view';
+  } else {
+    app.className = '';
+  }
+  
   let content = '<div class="ambient-light"></div>';
   content += renderHeader();
   
@@ -174,7 +182,7 @@ function renderEditor() {
   const proj = state.projects[state.category]?.find(p => p.folder === state.project);
   return `<div class="editor-container">
       <div class="file-tree">
-        <button class="back-btn" data-action="back-to-projects" style="margin: 0 0 20px 0; width: 100%;">← ${proj?.title || 'Back'}</button>
+        <button class="back-btn" data-action="back-to-projects" style="margin: 0 0 16px 0; width: 100%; padding: 8px 12px;">← ${proj?.title || 'Back'}</button>
         ${state.fileTree ? renderFileTreeItems(state.fileTree) : '<div class="loading">Loading files...</div>'}
       </div>
       <div class="editor-main">
