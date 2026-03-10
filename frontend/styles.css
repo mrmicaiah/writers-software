@@ -139,3 +139,121 @@ body {
 .loading { display: flex; justify-content: center; align-items: center; height: 200px; color: var(--gold); font-size: 18px; letter-spacing: 2px; }
 .loading::after { content: ''; width: 20px; height: 20px; border: 2px solid var(--gold-dim); border-top-color: var(--gold); border-radius: 50%; margin-left: 12px; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Header */
+  .header { padding: 24px 16px 40px; }
+  .header h1 { font-size: 28px; letter-spacing: 4px; }
+  .header p { font-size: 12px; letter-spacing: 2px; }
+  .header-line { width: 120px; margin: 16px auto 0; }
+
+  /* Categories */
+  .categories { gap: 16px; padding: 0 16px; }
+  .category-card { width: 100%; height: 120px; }
+  .category-card h2 { font-size: 20px; margin-bottom: 8px; }
+  .category-card p { font-size: 13px; }
+
+  /* Back button */
+  .back-btn { margin: 0 0 24px 16px; padding: 8px 16px; font-size: 12px; }
+
+  /* Shelf */
+  .shelf-container { padding: 0 16px; }
+  .shelf-title { font-size: 24px; margin-bottom: 32px; letter-spacing: 2px; }
+  .stage-header { font-size: 16px; margin: 24px 0 16px 0; padding-left: 12px; }
+
+  /* Books - 2 per row on mobile */
+  .books-row { gap: 16px; justify-content: space-around; }
+  .book-cover { width: 140px; height: 200px; padding: 14px 12px; }
+  .book-title { font-size: 14px; margin-top: 16px; margin-bottom: 10px; }
+  .book-summary { font-size: 10px; -webkit-line-clamp: 3; }
+  .book-status { font-size: 8px; padding: 3px 8px; bottom: 12px; }
+  .book-border-top { top: 8px; left: 12px; right: 12px; }
+  .book-border-bottom { bottom: 40px; left: 12px; right: 12px; }
+  .book-divider { width: 40px; margin-bottom: 10px; }
+  .book-spine { width: 6px; }
+
+  .shelf { height: 18px; margin-bottom: 40px; }
+  .shelf-edge { height: 6px; bottom: -6px; }
+
+  /* Ultimate Focus View */
+  .ultimate-focus-container { margin: 0 16px; padding: 24px 16px; }
+  .focus-book-header h2 { font-size: 24px; }
+  .focus-stage { font-size: 14px; }
+  
+  .stage-progress { padding: 12px; gap: 4px; }
+  .stage-dot { padding: 4px 6px; }
+  .stage-label { font-size: 8px; }
+
+  .focus-actions { flex-direction: column; gap: 12px; }
+  .primary-btn, .secondary-btn { width: 100%; padding: 14px 24px; }
+
+  /* Empty state */
+  .empty-state { padding: 40px 20px; }
+  .empty-state h2 { font-size: 22px; }
+  .empty-state p { font-size: 14px; }
+
+  /* Editor - single column on mobile */
+  .editor-container { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+  
+  .file-tree { 
+    border-right: none; 
+    border-bottom: 1px solid var(--gold-dim); 
+    padding: 16px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .file-tree-item { padding: 10px 12px; font-size: 13px; }
+
+  .editor-main { min-height: 300px; }
+  .editor-header { 
+    padding: 12px 16px; 
+    flex-direction: column; 
+    gap: 12px; 
+    align-items: flex-start; 
+  }
+  .editor-filename { font-size: 16px; }
+  .editor-actions { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    width: 100%; 
+  }
+  .editor-actions button { 
+    margin-left: 0; 
+    padding: 8px 12px; 
+    font-size: 12px; 
+    flex: 1;
+    min-width: 80px;
+  }
+  .editor-textarea { padding: 16px; font-size: 15px; min-height: 250px; }
+
+  .assistant-panel { 
+    border-left: none; 
+    border-top: 1px solid var(--gold-dim); 
+    min-height: 350px;
+  }
+  .assistant-header { padding: 16px; }
+  .assistant-header h3 { font-size: 16px; }
+  .assistant-messages { padding: 16px; }
+  .assistant-message { padding: 10px 14px; font-size: 13px; }
+  .assistant-input { padding: 16px; }
+  .assistant-input textarea { min-height: 60px; font-size: 14px; padding: 10px; }
+  .assistant-input button { padding: 12px; font-size: 13px; }
+
+  /* Footer */
+  .footer { padding: 24px 16px; margin-top: 40px; }
+  .footer p { font-size: 10px; letter-spacing: 1px; }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .header h1 { font-size: 24px; letter-spacing: 3px; }
+  .book-cover { width: 120px; height: 170px; padding: 10px 8px; }
+  .book-title { font-size: 12px; margin-top: 12px; }
+  .book-summary { font-size: 9px; -webkit-line-clamp: 2; }
+  .book-status { font-size: 7px; padding: 2px 6px; }
+}
