@@ -9,29 +9,62 @@ This is the working project for *The Four Horsemen*, a psychological thriller in
 
 ---
 
+## Writing Sessions
+
+**When the user wants to write:**
+
+1. Pull `tracking/current-status.md` — see what's drafted and what's next
+2. Pull `tracking/scene-queue.md` — full scene breakdown with checkboxes
+3. User says "what's next" or "give me choices" or "I want to write X"
+4. User writes — dictates or types
+5. Review together
+6. Save to `/chapters/`, update tracking files
+
+**Goal:** Get all scenes drafted. First pass. Depth over polish.
+
+---
+
 ## Before Starting Any Work
 
 Read these files first:
 
-1. **Style Guide:** `book-writing/the-four-horsemen/style-guide.md`
+1. **Current Status:** `tracking/current-status.md`
+   - What's done, what's next, quick choices
+
+2. **Scene Queue:** `tracking/scene-queue.md`
+   - Full scene-by-scene breakdown with checkboxes
+
+3. **Style Guide:** `style-guide.md`
    - Writing rules, POV structure, Grisham techniques, profanity guidelines
 
-2. **Story Bible:** `book-writing/the-four-horsemen/notes/story-bible.md`
+4. **Story Bible:** `notes/story-bible.md`
    - Full plot, three-act structure, collision points, character summaries
-
-3. **Raw Notes:** `book-writing/the-four-horsemen/notes/raw-notes.md`
-   - Original brainstorming, scene drafts, ideas
 
 ---
 
-## Character Files
+## Folder Structure
 
-Located in `book-writing/the-four-horsemen/characters/`:
-
-- `ryan-gauntlet.md` — Full character profile
-- `ryan-voice.md` — Voice document for writing Ryan's dialogue
-
-More character files will be added as developed.
+```
+book-writing/the-four-horsemen/
+├── _metadata.json
+├── style-guide.md
+├── PROJECT-INSTRUCTIONS.md
+├── tracking/
+│   ├── README.md           # How the tracking system works
+│   ├── current-status.md   # Quick snapshot of progress
+│   └── scene-queue.md      # Full scene breakdown
+├── characters/
+│   ├── ryan-gauntlet.md
+│   └── ryan-voice.md
+├── chapters/
+│   ├── chapter-01-draft-1.md
+│   ├── chapter-02-draft-1.md
+│   └── chapter-03-draft-1.md
+├── notes/
+│   ├── story-bible.md
+│   └── raw-notes.md
+└── research/
+```
 
 ---
 
@@ -44,48 +77,18 @@ Use the Productivity MCP to access files:
 - `Productivity:github_push_file` — Update or create a file
 - `Productivity:github_push_files` — Batch update multiple files
 
-**Example:**
-```
-Productivity:github_get_file
-repo: "writers-software"
-path: "book-writing/the-four-horsemen/style-guide.md"
-```
-
 ---
 
-## Folder Structure
+## Current Draft Status
 
-```
-book-writing/the-four-horsemen/
-├── _metadata.json          # Title, summary, stage
-├── style-guide.md          # Writing rules (READ FIRST)
-├── characters/
-│   ├── ryan-gauntlet.md    # Ryan's profile
-│   └── ryan-voice.md       # Ryan's voice document
-├── chapters/               # Chapter drafts (empty for now)
-├── notes/
-│   ├── story-bible.md      # Full story bible
-│   └── raw-notes.md        # Original brainstorming
-└── research/               # Book-specific research
-```
+| Chapter | Title | Status |
+|---------|-------|--------|
+| 1 | Garrison Dies | ✅ Draft 1 |
+| 2 | Ryan's Introduction | ✅ Draft 1 |
+| 3 | Professor Confirms the Kill | ✅ Draft 1 |
+| 4-28 | Remaining chapters | ⬜ Not started |
 
----
-
-## Current Status
-
-**Stage:** Nurturing (pre-focus development)
-
-**Completed:**
-- Three-act structure mapped
-- POV rhythm designed (Grisham style)
-- Collision points sequenced
-- Ryan character profile and voice document
-- Style guide adapted for this book
-
-**Next:**
-- Draft the cold open (Garrison's death on the coaster)
-- Character profiles for Professor Stanfield, Que, Pickler, Emily
-- Solve open story questions (money move, Predecessor's warning, etc.)
+**Total:** 3 of 28 chapters drafted
 
 ---
 
@@ -112,13 +115,9 @@ These need to be resolved:
 
 ---
 
-## Updates
+## After Each Writing Session
 
-When making changes to the book:
-
-1. Update relevant files in the repo
-2. If structure changes, update `story-bible.md`
-3. If new characters developed, add to `characters/`
-4. If chapters drafted, add to `chapters/`
-
-Keep everything in sync.
+1. Save new material to the appropriate chapter file in `/chapters/`
+2. Update `tracking/current-status.md` with what was completed
+3. Update `tracking/scene-queue.md` — check off completed scenes
+4. Log progress to the board if available
