@@ -36,11 +36,11 @@ Full scene-by-scene breakdown. Check off scenes as they're drafted.
 ---
 
 ### Chapter 4 — Pickler Gets the Case
-- [ ] Pickler POV: Arguing with the captain, doesn't want the case
-- [ ] Pickler POV: Arrives at Kings Dominion, sees the scene
-- [ ] Pickler POV: Talks to Kevin at the picnic table
+- [x] Pickler POV: Arguing with the captain, doesn't want the case
+- [x] Pickler POV: Arrives at Kings Dominion, meets the sheriff
+- [x] Pickler POV: Talks to Kevin at the picnic table
 
-**Status:** ⬜ Not started
+**Status:** ✅ Draft 1 complete
 
 ---
 
@@ -271,4 +271,3 @@ These scenes exist but need placement in the chapter structure:
 
 - [ ] Que's home life — dinner with Susan, bedtime story to Katie (Oliver the Wolf)
 - [ ] The confessional — Professor receiving contracts (multiple scenes throughout)
-- [ ] Kevin the ride operator — cut from Chapter 1, may return in Chapter 4
