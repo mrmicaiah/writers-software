@@ -45,12 +45,16 @@ Full scene-by-scene breakdown. Check off scenes as they're drafted.
 ---
 
 ### Chapter 5 — Ryan's First Assignment
-- [ ] Ryan POV: Que calls on the encrypted phone
-- [ ] Ryan POV: Travels to Fredericksburg, infiltrates
-- [ ] Ryan POV: Finds the thief, reports back
-- [ ] Ryan POV: Meets Emily — relationship begins
+- [x] Que POV: Hidden drawer behind The Art of War, calls Ryan on encrypted phone
+- [x] Que POV: The code system — "Where do I live?" "Mexico"
+- [x] Que POV: Assignment — Barker and Barker, 428 Plank Road, Fredericksburg, Gary Peters
+- [x] Que POV: Mirror moment — wine, wondering how he became this man
+- [ ] **NEEDS WRITING:** Ryan POV: Arrives at Barker and Barker, starts the job
+- [ ] **NEEDS WRITING:** Ryan POV: Working the job, finding Gary Peters, gathering proof
+- [ ] **NEEDS WRITING:** Ryan POV: Meets Emily — she's interning there, first spark
+- [ ] **NEEDS WRITING:** Ryan POV: Reports the name to Que
 
-**Status:** ⬜ Not started
+**Status:** 🟡 Partial — phone call written, Ryan scenes needed
 
 ---
 
